@@ -1,0 +1,49 @@
+[
+  {
+    $lookup: {
+      from: "products",
+      localField: "ProductKey",
+      foreignField: "ProductKey",
+      as: "product_info",
+    },
+  },
+  {
+    $unwind: "$product_info",
+  },
+  {
+    $lookup: {
+      from: "customers",
+      localField: "CustomerKey",
+      foreignField: "CustomerKey",
+      as: "customer_info",
+    },
+  },
+  {
+    $unwind: "$customer_info",
+  },
+  {
+    $match: {
+      "customer_info.AnnualIncome": {
+        $lt: 20000,
+      },
+    },
+  },
+  {
+    $addFields: {
+      OrderDate: {
+        $toDate: "$OrderDate",
+      },
+    },
+  },
+  {
+    $project: {
+      FirstName: "$customer_info.FirstName",
+      LastName: "$customer_info.LastName",
+      AnnualIncome: "$customer_info.AnnualIncome",
+      ProductName: "$product_info.ProductName",
+      Year: {
+        $year: "$OrderDate",
+      },
+    },
+  },
+]

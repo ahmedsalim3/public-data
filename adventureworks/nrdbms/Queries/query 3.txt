@@ -1,0 +1,64 @@
+[
+  {
+    $lookup: {
+      from: "customers",
+      localField: "CustomerKey",
+      foreignField: "CustomerKey",
+      as: "customer_info",}},
+  {
+    $lookup: {
+      from: "products",
+      localField: "ProductKey",
+      foreignField: "ProductKey",
+      as: "product_info",
+    },
+  },
+  {
+    $unwind: "$customer_info",
+  },
+  {
+    $unwind: "$product_info",
+  },
+  {
+    $addFields: {
+      OrderDate: {
+        $toDate: "$OrderDate",
+      },
+    },
+  },
+  {
+    $match: {
+      OrderDate: {
+        $gte: ISODate("2017-01-01"),
+        $lt: ISODate("2018-01-01"),
+      },
+    },
+  },
+  {
+    $group: {
+      _id: "$customer_info.CustomerKey",
+      FirstName: {
+        $first: "$customer_info.FirstName",
+      },
+      LastName: {
+        $first: "$customer_info.LastName",
+      },
+      ProductName: {
+        $first: "$product_info.ProductName",
+      },
+      OrderQuantity: {
+        $sum: "$OrderQuantity",
+      },
+      OrderDate: {
+        $first: "$OrderDate"}}},
+  {$sort: {OrderQuantity: -1}},
+  {
+    $project: {
+      FirstName: 1,
+      LastName: 1,
+      ProductName: 1,
+      OrderQuantity: 1,
+      Year: {
+        $year: "$OrderDate",},
+      _id: 0}}
+]

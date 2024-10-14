@@ -1,0 +1,44 @@
+[
+  {
+    $lookup: {
+      from: "customers",
+      localField: "CustomerKey",
+      foreignField: "CustomerKey",
+      as: "customer_info",
+    },
+  },
+  {
+    $lookup: {
+      from: "products",
+      localField: "ProductKey",
+      foreignField: "ProductKey",
+      as: "product_info",
+    },
+  },
+  {
+    $unwind: "$customer_info",
+  },
+  {
+    $unwind: "$product_info",
+  },
+  {
+    $group: {
+      _id: "$product_info.ProductName",
+      quantity_sold: {
+        $sum: "$OrderQuantity",
+      },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      ProductName: "$_id",
+      quantity_sold: 1,
+    },
+  },
+  {
+    $sort: {
+      quantity_sold: -1,
+    },
+  },
+]

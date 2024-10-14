@@ -1,0 +1,21 @@
+[
+  {
+    $project: {
+      ProductName: 1,
+      ProductCost: 1,
+      ProductPrice: 1,
+      Profit: {
+        $subtract: [
+          "$ProductPrice",
+          "$ProductCost",
+        ],
+      },
+    },
+  },
+  {
+    $sort: {
+      Profit: -1,
+    },
+  },
+]
+

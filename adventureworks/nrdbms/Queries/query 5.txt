@@ -1,0 +1,33 @@
+[
+  {
+    $lookup: {
+      from: "territories",
+      localField: "TerritoryKey",
+      foreignField: "TerritoryKey",
+      as: "territory_info",
+    },
+  },
+  {
+    $unwind: "$territory_info",
+  },
+  {
+    $group: {
+      _id: "$territory_info.Region",
+      Total_Return: {
+        $sum: 1,
+      },
+    },
+  },
+  {
+    $sort: {
+      Total_Return: -1,
+    },
+  },
+  {
+    $project: {
+      Total_Return: 1,
+      Region: "$_id",
+      _id: 0,
+    },
+  },
+]

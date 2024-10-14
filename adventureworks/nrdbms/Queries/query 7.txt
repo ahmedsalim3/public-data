@@ -1,0 +1,113 @@
+[
+  {
+    $addFields: {
+      ReturnDate: {
+        $toDate: "$ReturnDate",
+      },
+    },
+  },
+  {
+    $facet: {
+      2015: [
+        {
+          $match: {
+            ReturnDate: {
+              $gte: new Date("2015-01-01"),
+              $lte: new Date("2015-12-31"),
+            },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            Total_Returns: {
+              $sum: "$ReturnQuantity",
+            },
+          },
+        },
+        {
+          $project: {
+            Year: {
+              $literal: "2015",
+            },
+            Total_Returns: 1,
+            _id: 0,
+          },
+        },
+      ],
+      2016: [
+        {
+          $match: {
+            ReturnDate: {
+              $gte: new Date("2016-01-01"),
+              $lte: new Date("2016-12-31"),
+            },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            Total_Returns: {
+              $sum: "$ReturnQuantity",
+            },
+          },
+        },
+        {
+          $project: {
+            Year: {
+              $literal: "2016",
+            },
+            Total_Returns: 1,
+            _id: 0,
+          },
+        },
+      ],
+      2017: [
+        {
+          $match: {
+            ReturnDate: {
+              $gte: new Date("2017-01-01"),
+              $lte: new Date("2017-12-31"),
+            },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            Total_Returns: {
+              $sum: "$ReturnQuantity",
+            },
+          },
+        },
+        {
+          $project: {
+            Year: {
+              $literal: "2017",
+            },
+            Total_Returns: 1,
+            _id: 0,
+          },
+        },
+      ],
+    },
+  },
+  {
+    $project: {
+      results: {
+        $concatArrays: [
+          "$2015",
+          "$2016",
+          "$2017",
+        ],
+      },
+    },
+  },
+  {
+    $unwind: "$results",
+  },
+  {
+    $replaceRoot: {
+      newRoot: "$results",
+    },
+  },
+]
