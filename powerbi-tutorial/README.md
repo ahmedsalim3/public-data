@@ -1,4 +1,13 @@
-# Power BI Course: Download Practice Datasets
+# Power BI Tutorial: Tips for Clear Data Visualizations
+
+<div align="center">
+
+ [[`Blog`](https://ahmedsalim3.github.io/posts/powerbi-tutorial/)] [[`Dashboard`](https://app.powerbi.com/view?r=eyJrIjoiZjYwZjIzODktZGY0Ni00Y2UyLTg0YTItODMzOTZhOTIxYTlmIiwidCI6IjBlMGRiMmFkLWM0MTYtNDdjNy04OGVjLWNlYWM0ZWU3Njc2NyIsImMiOjEwfQ%3D%3D&pageName=ReportSectionf41a13297f1ea9120f47)] [[`Datasets`](#download-practice-datasets)]
+
+![snapshot](./snapshot.png)
+</div>
+
+# Download Practice Datasets
 
 The practice datasets used in this study was derived from this [tutorial](https://www.superdatascience.com/pages/powerbi), Published by **SuperDataScience Team**: 
 
