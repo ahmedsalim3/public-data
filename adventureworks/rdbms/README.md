@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[[`Blog`](https://ahmedsalim3.github.io/posts/adventureworks-database/)] [[`Code`](https://github.com/ahmedsalim3/AdventureWorks-Database)] [[`Text to SQL App`](https://ai-sql.streamlit.app/)]
+[[`Blog`](https://ahmedsalim3.github.io/posts/adventureworks-database/)] [[`Code`](https://github.com/ahmedsalim3/AdventureWorks-Database)] [[`Text to SQL App`](https://sql-unlocked.streamlit.app/)]
 
 ![adventureworks-schema](./adventureworks_schema.png)
 </div>
